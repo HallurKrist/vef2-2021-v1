@@ -1,0 +1,21 @@
+<%- include('header') -%>
+
+<div class='container'>
+
+  <h1 class='title'><%= data.title %></h1>
+
+  <video class='theVideo' controls>
+    <source src="<%= data.video %>" type="video/mp4">
+  Your browser does not support the video tag.
+  </video>
+
+  <div class='description'>
+    <p><%= data.description %></p>
+    <a href='../'>Til baka</a>
+  </div>
+
+  <p class='copyrights'>&copy Fræðslumyndbandaleigan</p>
+
+</div>
+
+<%- include('footer') -%>

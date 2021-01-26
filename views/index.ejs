@@ -1,0 +1,66 @@
+<%- include('header') -%>
+
+<div class='container'>
+
+  <h1 class='title'>Fræðslumyndbandaleigan</h1>
+
+  <% for(var i=0; i < data.categories.length; i++) { %>
+  <div class='category'>
+    <h2 class='category__title'><%= data.categories[i].title %></h2>
+    <div class='category__videos'>
+      <% for(var j=0; j < data.categories[i].videos.length; j++) { %>
+        <div class='poster'>
+          <% const vidNr = data.categories[i].videos[j]; %>
+          <a class='poster__link' href="video<%= data.videos[vidNr - 1].id %>">
+            <div class='poster__image' style="background-image: url(<%= data.videos[vidNr - 1].poster %>)">
+              <% if( data.videos[vidNr - 1].duration < 10 ) { %>
+                <p class='poster__time'>00:0<%= data.videos[vidNr - 1].duration %></p>
+              <% } else if( data.videos[vidNr - 1].duration < 60 ) { %>
+                <p class='poster__time'>00:<%= data.videos[vidNr - 1].duration %></p>
+              <% } else if( Math.floor(data.videos[vidNr - 1].duration / 60) < 10 ) { %>
+                <% if( (data.videos[vidNr - 1].duration % 60) < 10 ) { %>
+                  <p class='poster__time'><%= `0${ Math.floor(data.videos[vidNr - 1].duration / 60) }:0${ data.videos[vidNr - 1].duration % 60 }` %></p>
+                <% } else { %> -->
+                  <p class='poster__time'><%= `0${ Math.floor(data.videos[vidNr - 1].duration / 60) }:${ data.videos[vidNr - 1].duration % 60 }` %></p>
+                  <% } %>
+              <% } else { %>
+                <% if( (data.videos[vidNr - 1].duration % 60) < 10 ) { %>
+                  <p class='poster__time'><%= `${ Math.floor(data.videos[vidNr - 1].duration / 60) }:0${ data.videos[vidNr - 1].duration % 60 }` %></p>
+                <% } else { %>
+                  <p class='poster__time'><%= `${ Math.floor(data.videos[vidNr - 1].duration / 60) }:${ data.videos[vidNr - 1].duration % 60 }` %></p>
+                  <% } %>
+              <% } %>
+              <!-- <img class='poster__image__img' src= <%=data.videos[vidNr - 1].poster%> > -->
+            </div>
+          </a>
+          <div class='poster__text'>
+            <h3 class='poster__text__title'><%=data.videos[vidNr - 1].title%></h3>
+            <% const timeAgo = Date.now() - data.videos[vidNr - 1].created; %>
+            <% if( timeAgo/100/60/60 < 24 ) { %>
+              <p class='poster__text__time'>Fyrir <%= Math.floor(timeAgo/100/60/60) %> klukkustundum síðan</p>
+            <% } else if( timeAgo/100/60/60/24 < 7 ) { %>
+              <p class='poster__text__time'>Fyrir <%= Math.floor(timeAgo/100/60/60/24) %> dögum síðan</p>
+            <% } else if( timeAgo/100/60/60/24 < 30 ) {%>
+              <p class='poster__text__time'>Fyrir <%= Math.floor(timeAgo/100/60/60/24/7) %> vikum síðan</p>
+            <% } else if( timeAgo/100/60/60/24 < 365 ) { %>
+              <p class='poster__text__time'>Fyrir <%= Math.floor(timeAgo/100/60/60/24/30) %> mánuðum síðan</p>
+            <% } else { %>
+              <p class='poster__text__time'>Fyrir <%= Math.floor(timeAgo/100/60/60/24/365) %> árum síðan</p>
+            <% } %>
+
+          </div>
+        </div>
+      <% } %>
+    </div>
+    <div class='category__break'></div>
+  </div>
+  <% } %>
+  <p class='copyrights'>&copy Fræðslumyndbandaleigan</p>
+
+</div>
+
+
+
+
+
+<%- include('footer') -%>
